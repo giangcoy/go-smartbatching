@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"sync"
 	"testing"
+	"time"
 )
 
 type processTest struct {
@@ -97,4 +98,25 @@ func Test_smartbatch_Add(t *testing.T) {
 			}
 		})
 	}
+}
+
+type processBench struct {
+	mtx sync.Mutex
+}
+
+func (p *processBench) Do(key string, datas []interface{}) []interface{} {
+	p.mtx.Lock()
+	time.Sleep(50 * time.Millisecond)
+	p.mtx.Unlock()
+	return datas
+}
+func Benchmark_Add(b *testing.B) {
+	s := &smartbatch{muBatch: &sync.Mutex{}, tblBatch: map[string][]item_batch{}}
+	p := &processBench{mtx: sync.Mutex{}}
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			s.Add(p, "A", int(100))
+		}
+	})
+
 }
