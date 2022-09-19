@@ -6,7 +6,7 @@ type item_batch struct {
 	rep  chan interface{}
 	data interface{}
 }
-type smartbatch struct {
+type SmartBatching struct {
 	muBatch  *sync.Mutex
 	tblBatch map[string][]item_batch
 }
@@ -14,7 +14,7 @@ type processBatch interface {
 	Do(key string, datas []interface{}) []interface{}
 }
 
-func (s *smartbatch) doBatch(p processBatch, key string, items ...item_batch) {
+func (s *SmartBatching) doBatch(p processBatch, key string, items ...item_batch) {
 	datas := make([]interface{}, 0, len(items))
 	for _, item := range items {
 		datas = append(datas, item.data)
@@ -36,7 +36,7 @@ func (s *smartbatch) doBatch(p processBatch, key string, items ...item_batch) {
 	}
 
 }
-func (s *smartbatch) Add(p processBatch, key string, data interface{}) interface{} {
+func (s *SmartBatching) Add(p processBatch, key string, data interface{}) interface{} {
 	rep := make(chan interface{})
 	s.muBatch.Lock()
 	batch, exist := s.tblBatch[key]

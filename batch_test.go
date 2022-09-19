@@ -51,7 +51,7 @@ func Test_smartbatch_doBatch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			s := &smartbatch{
+			s := &SmartBatching{
 				muBatch:  tt.fields.muBatch,
 				tblBatch: tt.fields.tblBatch,
 			}
@@ -89,7 +89,7 @@ func Test_smartbatch_Add(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			s := &smartbatch{
+			s := &SmartBatching{
 				muBatch:  tt.fields.muBatch,
 				tblBatch: tt.fields.tblBatch,
 			}
@@ -111,7 +111,7 @@ func (p *processBench) Do(key string, datas []interface{}) []interface{} {
 	return datas
 }
 func Benchmark_Add(b *testing.B) {
-	s := &smartbatch{muBatch: &sync.Mutex{}, tblBatch: map[string][]item_batch{}}
+	s := &SmartBatching{muBatch: &sync.Mutex{}, tblBatch: map[string][]item_batch{}}
 	p := &processBench{mtx: sync.Mutex{}}
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
