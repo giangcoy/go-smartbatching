@@ -1,0 +1,15 @@
+mode: set
+github.com/giangcoy/SmartBatch/smartbatch.go:17.79,19.29 2 1
+github.com/giangcoy/SmartBatch/smartbatch.go:22.2,22.39 1 1
+github.com/giangcoy/SmartBatch/smartbatch.go:25.2,27.21 3 1
+github.com/giangcoy/SmartBatch/smartbatch.go:32.2,33.20 2 1
+github.com/giangcoy/SmartBatch/smartbatch.go:19.29,21.3 1 1
+github.com/giangcoy/SmartBatch/smartbatch.go:22.39,24.3 1 1
+github.com/giangcoy/SmartBatch/smartbatch.go:27.21,29.3 1 1
+github.com/giangcoy/SmartBatch/smartbatch.go:29.8,31.3 1 1
+github.com/giangcoy/SmartBatch/smartbatch.go:33.20,36.3 1 1
+github.com/giangcoy/SmartBatch/smartbatch.go:39.84,43.11 4 0
+github.com/giangcoy/SmartBatch/smartbatch.go:47.2,49.12 3 0
+github.com/giangcoy/SmartBatch/smartbatch.go:52.2,52.14 1 0
+github.com/giangcoy/SmartBatch/smartbatch.go:43.11,46.3 1 0
+github.com/giangcoy/SmartBatch/smartbatch.go:49.12,51.3 1 0
