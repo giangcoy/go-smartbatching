@@ -21,11 +21,11 @@ var (
 	balanceField string  = "amount"
 )
 
-type balanceHostpot struct {
+type balanceHotspot struct {
 	db *sql.DB
 }
 
-func (b *balanceHostpot) Do(key string, datas []interface{}) []interface{} {
+func (b *balanceHotspot) Do(key string, datas []interface{}) []interface{} {
 	tx, err := b.db.Begin()
 	var balance int64 = 0
 	fail := func(err error) []interface{} {
@@ -83,7 +83,8 @@ func main() {
 	durations := make([]int, 0, n)
 	muDurations := sync.Mutex{}
 	batch := smartbatching.NewSmartBatching()
-	balance := &balanceHostpot{db}
+	balance := &balanceHotspot{db}
+
 	wg := sync.WaitGroup{}
 	t0 := time.Now()
 	for t := 0; t < *nThread; t++ {
