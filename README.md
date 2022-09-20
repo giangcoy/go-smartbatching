@@ -1,1 +1,1 @@
-# SmartBatch
+# go-smartbatching
