@@ -1,4 +1,4 @@
-package smartbatch
+package smartbatching
 
 import (
 	"reflect"

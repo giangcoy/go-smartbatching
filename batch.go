@@ -1,4 +1,4 @@
-package smartbatch
+package smartbatching
 
 import "sync"
 
@@ -51,4 +51,10 @@ func (s *SmartBatching) Add(p processBatch, key string, data interface{}) interf
 	}
 	return <-rep
 
+}
+func NewSmartBatching() *SmartBatching {
+	return &SmartBatching{
+		muBatch:  &sync.Mutex{},
+		tblBatch: map[string][]item_batch{},
+	}
 }
