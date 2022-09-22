@@ -82,8 +82,7 @@ func main() {
 	n := *nRequest * *nThread
 	durations := make([]int, 0, n)
 	muDurations := sync.Mutex{}
-	batch := smartbatching.NewSmartBatching()
-	balance := &balanceHotspot{db}
+	batch := smartbatching.NewSmartBatching(&balanceHotspot{db})
 
 	wg := sync.WaitGroup{}
 	t0 := time.Now()
@@ -92,7 +91,7 @@ func main() {
 		go func() {
 			for r := 0; r < *nRequest; r++ {
 				t1 := time.Now()
-				batch.Add(balance, keyTest, int64(1))
+				batch.Add(keyTest, int64(1))
 				muDurations.Lock()
 				durations = append(durations, int(time.Since(t1).Milliseconds()))
 				muDurations.Unlock()
@@ -102,11 +101,8 @@ func main() {
 	}
 	wg.Wait()
 	sort.Ints(durations)
-	k := int(time.Since(t0).Seconds())
-	if k < 1 {
-		k = 1
-	}
-	fmt.Printf("TPS: %d\n", n/k)
+
+	fmt.Printf("TPS: %d\n", int(float64(n)/float64(time.Since(t0).Seconds())))
 	percentiles := []int{99, 95, 90, 75, 50}
 	for _, percentile := range percentiles {
 		fmt.Printf("P%d: %d(ms)\n", percentile, durations[n*percentile/100])
